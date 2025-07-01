@@ -12,6 +12,9 @@
 
 <launch>
 
+    <node pkg="tf2_ros" type="static_transform_publisher" name="gps_static_pub"
+        args="0 0 0 0 0 0 1 gps_antenna gps" />
+
     <!-- COMPASS -->
     <arg name="nodelet_manager" default="" doc="If nonempty, the name of the nodelet manager to load the nodelets into." />
     <arg name="frame" default="base_link" doc="The frame in which the azimuth should be computed." />
