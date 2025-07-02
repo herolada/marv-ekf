@@ -1,7 +1,7 @@
 ekf_se_map:
   frequency: 30
   sensor_timeout: 0.1
-  two_d_mode: false
+  two_d_mode: true
   transform_time_offset: 0.0
   transform_timeout: 0.0
   print_diagnostics: true
@@ -37,48 +37,48 @@ ekf_se_map:
   odom0_relative: false
 
   odom1: icp_odom/cov
-  odom1_config: [false, false,  false,
+  odom1_config: [true, true,  true,
                  false, false, false,
-                 true, true, true,
+                 false, false, false,
                  false, false, false,
                  false, false, false]
   odom1_queue_size: 10
   odom1_nodelay: true
-  odom1_differential: false
+  odom1_differential: true
   odom1_relative: false
 
-  imu0: imu/data
-  imu0_config: [false, false, false,
-                true,  true,  false,
-                false, false, false,
-                false,  false,  true,
-                false,  false,  false]
-  imu0_nodelay: true
-  imu0_differential: false
-  imu0_relative: false
-  imu0_queue_size: 10
+  # imu0: imu/data
+  # imu0_config: [false, false, false,
+  #               false,  false,  false,
+  #               false, false, false,
+  #               false,  false,  true,
+  #               false,  false,  false]
+  # imu0_nodelay: true
+  # imu0_differential: false
+  # imu0_relative: false
+  # imu0_queue_size: 10
 
-  imu1: /compass/utm/enu/imu
-  imu1_config: [false, false, false,
-                false, false, true,
-                false, false, false,
-                false, false, false,
-                false, false, false]
-  imu1_nodelay: true
-  imu1_differential: false
-  imu1_relative: false
-  imu1_queue_size: 10
+  # imu1: /compass/utm/enu/imu
+  # imu1_config: [false, false, false,
+  #               false, false, true,
+  #               false, false, false,
+  #               false, false, false,
+  #               false, false, false]
+  # imu1_nodelay: true
+  # imu1_differential: false
+  # imu1_relative: false
+  # imu1_queue_size: 10
 
-  imu2: gps/azimuth_imu
-  imu2_config: [false, false, false,
-                false, false, true,
-                false, false, false,
-                false, false, false,
-                false, false, false]
-  imu2_nodelay: true
-  imu2_differential: false
-  imu2_relative: false
-  imu2_queue_size: 10
+  # imu2: gps/azimuth_imu
+  # imu2_config: [false, false, false,
+  #               false, false, true,
+  #               false, false, false,
+  #               false, false, false,
+  #               false, false, false]
+  # imu2_nodelay: true
+  # imu2_differential: false
+  # imu2_relative: false
+  # imu2_queue_size: 10
 
 
   use_control: false
@@ -119,7 +119,7 @@ navsat_transform:
   frequency: 10
   delay: 3.0
   # magnetic_declination_radians: 0.0429351  # For lat/long 55.944831, -3.186998
-  yaw_offset: 1.570796327  # IMU reads 0 facing magnetic north, not east
+  yaw_offset: 0. # 1.570796327  # IMU reads 0 facing magnetic north, not east
   zero_altitude: false
   broadcast_cartesian_transform: true
   broadcast_local_cartesian_transform: true

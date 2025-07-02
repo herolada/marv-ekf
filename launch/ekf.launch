@@ -33,9 +33,11 @@
 
     <node name="compass" pkg="nodelet" type="nodelet" args="load magnetometer_compass/magnetometer_compass $(arg nodelet_manager_name)" respawn="true">
         <param name="~publish_true_azimuth_enu_imu" value="True" />
+        <param name="~publish_utm_azimuth_enu_imu" value="True" />
         <param name="frame" value="$(arg frame)" />
         <param name="low_pass_ratio" value="$(arg low_pass_ratio)" if="$(eval low_pass_ratio != '')" />
         <param name="subscribe_mag_unbiased" value="$(arg unbias)" />
+        <param name="initial_variance" value="9.86" />
         <remap from="gps/fix" to="fix" />
     </node>
 
@@ -45,6 +47,40 @@
         <remap from="gps/fix" to="fix" />
         <param name="max_rate" value="10" />
     </node>
+
+    <!-- COMPASS CONVERSIONS -->
+    <!-- <node pkg="compass_conversions" exec="compass_transformer_nodelet" name="compass_for_ekf" respawn="true">
+      <param name="target_orientation" value="enu" />
+      <param name="target_reference" value="utm" />
+      <param name="target_type" value="pose" />
+      <param name="target_append_suffix" value="false" />
+      <param name="out_frame_id" value="utm" />
+
+      <remap from="azimuth_in" to="compass/true/enu/rad/cov" />
+      <remap from="azimuth_out" to="compass/utm/enu/pose_utm" />
+    </node>
+
+    <node pkg="compass_conversions" exec="compass_transformer_nodelet" name="compass_for_navsat_transform" respawn="true">
+      <param name="target_orientation" value="enu" />
+      <param name="target_reference" value="'true'" />
+      <param name="target_type" value="imu" />
+      <param name="target_append_suffix" value="false" />
+
+      <remap from="azimuth_in" to="compass/true/enu/rad/steady" />
+      <remap from="azimuth_out" to="compass/true/enu/imu/steady" />
+    </node>
+  
+    <node pkg="compass_conversions" exec="compass_transformer_nodelet" name="gps_compass_utm" respawn="true">
+      <param name="target_orientation" value="enu" />
+      <param name="target_reference" value="utm" />
+      <param name="target_type" value="pose" />
+      <param name="target_append_suffix" value="false" />
+      <param name="out_frame_id" value="utm" />
+
+      <remap from="azimuth_in" to="gps/azimuth" />
+      <remap from="azimuth_out" to="gps/azimuth_pose_utm" />
+    </node> -->
+
 
 
     <!-- EKF -->
@@ -62,7 +98,8 @@
 
     <!-- COVARIANCE HANDLING -->
     <node pkg="ekf" type="ekf_covariance_setter_node" name="ekf_covariance_setter_node">
-        <param name="cov_value" value="1e-2" />
+        <param name="~cov_value" value="0.00001" />
+        <!-- <param name="~topic" value="icp_odom" /> -->
     </node>
 
 </launch>
