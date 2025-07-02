@@ -60,4 +60,9 @@
         <remap from="odometry/filtered" to="gps_odom"/>
     </node>
 
+    <!-- COVARIANCE HANDLING -->
+    <node pkg="ekf" type="ekf_covariance_setter_node" name="ekf_covariance_setter_node">
+        <param name="cov_value" value="1e-2" />
+    </node>
+
 </launch>
